@@ -1,0 +1,138 @@
+
+# Build rules for objects
+-include $(OBJECTS:.lo=.d)
+
+# Special dependency for SDL.c, since it depends on SDL_revision.h
+/home/natalia/Desktop/Estructuras/Proyecto 1/SDL/src/SDL.c: update-revision
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/atomic/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/audio/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/cpuinfo/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/dynapi/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/events/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/file/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/haptic/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/joystick/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/libm/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/power/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/render/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/render/*/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/stdlib/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/thread/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/timer/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/video/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/video/dummy/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/audio/disk/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/audio/dummy/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/audio/pulseaudio/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/SDL_ime.lo: 1/SDL/src/core/linux/SDL_ime.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/joystick/linux/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/joystick/steam/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/power/linux/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/filesystem/unix/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/timer/unix/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/core/unix/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/haptic/dummy/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/thread/generic/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto
+
+$(objects)/*.lo: 1/SDL/src/loadso/dummy/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+
+/home/natalia/Desktop/Estructuras/Proyecto 
+$(objects)/*.lo: 1/SDL/src/main/dummy/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+/home/natalia/Desktop/Estructuras/Proyecto 
+$(objects)/*.lo: 1/SDL/src/test/*.c
+	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS)  -c $< -o $@
+
