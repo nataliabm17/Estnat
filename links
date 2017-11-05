@@ -1,0 +1,13 @@
+http://members.chello.nl/w.boeke/SDL-widgets/
+
+
+tutos kulz
+https://www.youtube.com/watch?v=PXxCzgvze50&index=13&list=PLHJE4y54mpC5_eEz9gCqIkNpU-n_2eyNt
+
+instalar
+http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/linux/index.php
+
+mouse events
+https://www.youtube.com/watch?v=5oSKDkBJVmc
+
+g++ -o master mastermind.cpp -lSDL2main -lSDL2 -lSDL2_image -g `sdl2-config --cflags --libs`
