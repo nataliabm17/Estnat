@@ -27,22 +27,27 @@ vector<int> C_Farach::numericAlphabet(string s, int size){
 			found = false;
 		}
 	}
+	else{
+		for(int i=0;i<a.size();i++){
+			numeric[i]=(int)a[i]-48;
+		}
+	}
+
 	return numeric;
 }
 
 void C_Farach::createOddTree(string s){
-
 	pair<int,int> pair;
 	pair= make_pair(1,2);
 }
 
 
 int main(void){
-	string s = ("hjkhloo");
+	string s = ("128897345");
 	C_Farach f;
 	vector<int> a;
 	a=f.numericAlphabet(s,s.length());
 	for(int i =0;i<s.length();i++){
-		std::cout <<"i"<< a[i] << '\n';
+		std::cout << a[i] << '\n';
 	}
 }
