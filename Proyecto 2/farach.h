@@ -9,11 +9,19 @@
 #include <algorithm>
 using namespace std;
 
+struct S_node{
+	int index;
+	S_node *father;
+	int children;
+	int suffix;
+};
+
 class C_Farach{
 private:
-
-public:
+	S_node *root;
 	vector<int> numericAlphabet(string ,int);
-	vector< pair<int,int> > bucketSort(vector<	pair<int,int> >);
+	vector< pair<int,int> > pairSort(vector<	pair<int,int> >);
+	void createTree(vector<int> );
+public:
 	void createOddTree(string);
 };
