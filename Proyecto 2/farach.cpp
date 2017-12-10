@@ -62,15 +62,16 @@ void C_Farach::createOddTree(string s){
 	for(int i=0;i<pairs.size();i++){
 		std::cout << "pairs finales "<< pairs[i].first<<"  "<<pairs[i].second << '\n';
 	}
+	vector<int> sf;
 	for(int i=0;i<pairs.size();i++){			//se guardan en el vector s los numeros que quedaron en las tuplas
-		s.push_back(pairs[i].first);
-		s.push_back(pairs[i].second);
+		sf.push_back(pairs[i].first);
+		sf.push_back(pairs[i].second);
 	}
+	createTree(sf);		//se llama a la funcion createTree() para hacer el arbol con el vector s
 }
 
 //funcion para ordenas un vector de tuplas
 vector< pair<int,int> > C_Farach::pairSort(vector<	pair<int,int> > vect){
-
 	sort(vect.begin(), vect.end());	//se ordenan las tuplas
 	for(int i=0;i<vect.size();i++){
 		std::cout << "pairs "<< vect[i].first<<"  "<<vect[i].second << '\n';
@@ -78,12 +79,119 @@ vector< pair<int,int> > C_Farach::pairSort(vector<	pair<int,int> > vect){
 	return vect;
 }
 
+pair<S_node*,pair<int,int> > C_Farach::placeInTree(vector<int> s, S_node* node, int pos){
+	bool found = false;
+	pair<int,int> pair2;
+	pair<S_node*,pair<int,int> > pair;
+	S_node* aux=NULL;
+	for(int i=0;i<s.size();i++){
+		for(int j=0;j<node->childrenCount;j++){
+			if(node->children[j]->suffix[0]==s[i]){
+				aux = node->children[j];
+			}
+		}
+
+		if(aux){
+			for(int i=0;i<aux->suffix.size();i++){
+
+				if(aux->suffix[i]!=s[pos+i]){
+					found=true;
+					pair2.first=i;
+					pair2.first=pos+i;
+					pair.second=pair2;
+				}
+			}
+			pos=pos+aux->suffix.size();
+			if(!found){
+				placeInTree(s,aux,pos);
+			}
+		}
+		pair.first=aux;
+		return pair;
+	}
+}
+
+
+//funcion para crear el arbol de sufijos
 void C_Farach::createTree(vector<int> s){
+
+	this->root->parent=NULL;
+	root->childrenCount=0;
+	vector<int> vect;
+	int c = 1;
+
+	for(int i=0;i<s.size();i++){
+		vect.clear();
+		for(int j=0;j<c;j++){
+			vect.push_back(s[s.size()-1-i+j]);
+		}
+		pair<S_node*,pair<int,int> > pos = placeInTree(vect,root,0);
+
+		S_node* posn = pos.first;		//posicion del nodo
+		int posl1 = pos.second.second;
+		int posl = pos.second.first;			//posicion del numero en el vector
+		S_node* newNode = new S_node;
+		newNode->index=c;
+		if(pos.first==NULL){
+			root->children[root->childrenCount]=newNode;
+			root->childrenCount=root->childrenCount+1;
+			newNode->suffix=vect;
+			newNode->parent=root;
+			cout << "se agrega nodo con:" << '\n';
+			for(int i=0;i<newNode->suffix.size();i++){
+				cout << newNode->suffix[i] << '\n';
+			}
+			std::cout << "con index: "<<newNode->index << '\n';
+
+		}
+
+		else{
+			vector<int> v;
+			S_node* newNode2 = new S_node;
+			std::cout << "x "<<posn->suffix.size()<< '\n';
+			for(int x=posn->suffix.size()-posl-1;x<posn->suffix.size();x++){
+				v.push_back(posn->suffix[x]);
+			}
+			for(int x=posn->suffix.size()-1;x>posl;x--){
+				posn->suffix.erase(posn->suffix.begin()+x);
+			}
+			newNode2->suffix=v;
+			newNode2->parent=posn;
+			newNode2->index=posn->index;
+			newNode2->childrenCount=0;
+			newNode->childrenCount=0;
+			posn->children[posn->childrenCount]=newNode;
+			posn->children[posn->childrenCount]=newNode2;
+			posn->index=0;
+			posn->childrenCount=posn->childrenCount+2;
+			newNode->parent=posn;
+
+			vector<int> v2;
+			for(int x=s.size()-posl1-1;x<s.size();x++){
+				v2.push_back(s[x]);
+			}
+			newNode->suffix=v2;
+			cout << "se agrega nodo con:" << '\n';
+			for(int i=0;i<newNode->suffix.size();i++){
+				cout << newNode->suffix[i] << '\n';
+			}
+			std::cout << "con index: "<<newNode->index << '\n';
+			std::cout << ".........." << '\n';
+			cout << "se agrega nodo con:" << '\n';
+			for(int i=0;i<newNode2->suffix.size();i++){
+				cout << newNode2->suffix[i] << '\n';
+			}
+			std::cout << "con index: "<<newNode2->index << '\n';
+
+		}
+		c++;
+		std::cout << ".........." << '\n';
+	}
 
 }
 
 int main(void){
-	string s = ("818189");
+	string s = ("81818");
 	C_Farach f;
 	f.createOddTree(s);
 }
