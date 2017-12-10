@@ -1,3 +1,7 @@
+
+// g++ -o main farach.cpp -g -std=c++11 -std=gnu++11
+
+
 #include "farach.h"
 
 //funcion para cambiar el string a un vector de ints
@@ -29,13 +33,13 @@ vector<int> C_Farach::numericAlphabet(string s, int size){
 			numeric[i]=(int)a[i]-48;		//se pasan los caracteres a ints
 		}
 	}
-	numeric.push_back(10);	//se agrega un 10 al final del array representando el simbolo $ que indica el final del string
+	numeric.push_back(10);	//se agrega un 50 al final del array representando el simbolo $ que indica el final del string
 	return numeric;
 }
 
 
 //funcion encargada de generar el odd tree
-void C_Farach::createOddTree(string s){
+vector<int> C_Farach::createOddTree(string s){
 	vector<int> numeric=numericAlphabet(s,s.length());	//vector en el que se guarda el devuelto por el metodo numericAlphabet
 	vector< pair<int,int> > pairs;		//vector con los pairs del string
 
@@ -68,6 +72,7 @@ void C_Farach::createOddTree(string s){
 		sf.push_back(pairs[i].second);
 	}
 	createTree(sf);		//se llama a la funcion createTree() para hacer el arbol con el vector s
+	return sf;
 }
 
 //funcion para ordenas un vector de tuplas
@@ -183,14 +188,69 @@ void C_Farach::createTree(vector<int> s){
 			cout << "con index: "<<newNode2->index << '\n';
 
 		}
-		c++;		//se aumenta el contador para agrgar un numero mas al sufijo
+		c++;		//se aumenta el contador para agregar un numero mas al sufijo
 		cout << ".........." << '\n';
 	}
+}
 
+//funcion para crear el even tree, recibe como parametro en vector de int utilizado para hacer el odd tree
+void C_Farach::createEvenTree(vector<int> s){
+	vector<	pair<int,int>	> pairs;					//vector para guardar tuplas con los valores de suffix y index del arbol
+	for(int i=1;2*i<s.size();i++){					//se recorre el vector s para copiar los numeros en las tuplas
+		pair<int,int> pair;
+		pair.first=s[2*i];										//valor de suffix
+		pair.second=2*i;											//valor de index
+		pairs.push_back(pair);
+	}
+	pairs=pairSort(pairs);
+//	vector<int> sf;
+	root2->childrenCount=0;
+	int lcp;
+	for(int i=0;i<pairs.size();i++){									//se recorre el vector de tuplas insertar los nodos en el arbol
+		S_node* newNode = new S_node;										//se crea un nuevo nodo
+		newNode->index=pairs[0].second;									//se le asigna el index respectivo
+		newNode->suffix.push_back(pairs[0].first);			//se adigna el suffix respectivo
+		newNode->parent=root2;													//se le asigna como padre el root
+		newNode->height=1;															//su altura es 1 por ser el primer nodo
+		root2->children[root2->childrenCount]=newNode;	//se asigna como hijo del root
+		root2->childrenCount++;
+		S_node* last = newNode;
+		S_node* aux = newNode;
+		S_node* new2 = new S_node;
+		if(i>pairs.size()){															//es caso de que no sea el primer nodo a insertar
+			lcp=LCP(s,pairs[i].first,pairs[i+1].first);		//se calcula el lcp entre el ultimo nodo insertado y el nuevo a insertar
+			int dif = last->height-lcp;										//diferencia entre el nodo y donde debe estar el lcp
+			for(int i=0;i<=dif;i++){
+				aux=aux->parent;
+			}
+			new2->parent=aux;															//se asigna como padre del nuevo nodo
+			aux->children[aux->childrenCount]=new2;
+			aux->childrenCount=aux->childrenCount+1;			//se anade 1 al contador de hijos del padre del nuevo nodo
+			new2->index=pairs[i].second;									//se asigna el index respectivo
+			new2->suffix.push_back(pairs[i].first);				//se asigna el suffix respectivo
+		}
+	}
+}
+
+
+
+int C_Farach::LCP(vector<int> s,int i, int j){
+	int lcp;
+	if(s[2*i]==s[2*j]){
+		lcp = LCP(s,i+1,j+1)+1;
+	}
+	else{
+		lcp = 0;
+	}
+	return lcp;
 }
 
 int main(void){
 	string s = ("81818");
 	C_Farach f;
-	f.createOddTree(s);
+	cout << "Se crea el Odd Tree" << '\n';
+	vector<int> fs =f.createOddTree(s);
+	cout << "*****************************************" << '\n';
+	cout << "Se crea el Even Tree" << '\n';
+	f.createEvenTree(fs);
 }
