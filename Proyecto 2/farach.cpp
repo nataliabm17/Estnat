@@ -79,35 +79,36 @@ vector< pair<int,int> > C_Farach::pairSort(vector<	pair<int,int> > vect){
 	return vect;
 }
 
+
+//funcion para encontrar donde se debe insertar un nodo en el arbol, recibe un vector de int con el alfabeto numerico del string
 pair<S_node*,pair<int,int> > C_Farach::placeInTree(vector<int> s, S_node* node, int pos){
-	bool found = false;
-	pair<int,int> pair2;
-	pair<S_node*,pair<int,int> > pair;
-	S_node* aux=NULL;
-	for(int i=0;i<s.size();i++){
-		for(int j=0;j<node->childrenCount;j++){
-			if(node->children[j]->suffix[0]==s[i]){
-				aux = node->children[j];
+	bool found = false;			//bandera que indica si ya se encontro la posicion
+	pair<int,int> pair2;		//tupla para guardar las posiciones en donde se divide el vector s y el suffix del nodo donde se va a introducir el nuevo
+	pair<S_node*,pair<int,int> > pair;		//tupla para guardar el puntero al nodo donde se va a agregar el nuevo
+	S_node* aux=NULL;						//nodo auxiliar para guardar el puntero de la posicion donde se va ainsertar el nuevo nodo
+	for(int i=0;i<s.size();i++){									//se recorre el vector s
+		for(int j=0;j<node->childrenCount;j++){			//se recorren todos los hijos del nodo a revisar
+			if(node->children[j]->suffix[0]==s[i]){		//si el primer numero del sufijo de uno de los hijos coincide con el primero del vector s
+				aux = node->children[j];								//se guarda en aux el nodo donde el numero coincide
 			}
 		}
 
-		if(aux){
-			for(int i=0;i<aux->suffix.size();i++){
-
-				if(aux->suffix[i]!=s[pos+i]){
-					found=true;
-					pair2.first=i;
-					pair2.first=pos+i;
-					pair.second=pair2;
+		if(aux){				//si se encontro un numero en la primera posicion que coinciera con el primero del vector s
+			for(int i=0;i<aux->suffix.size();i++){				//se recorren todos los numeros del sufijo de el nodo auxiliar
+				if(aux->suffix[i]!=s[pos+i]){								//si los numeros en el nodo dejan de coincidir con el del vector s
+					found=true;					//la bandera se cambia para indicar que ya se encontro la posicion
+					pair2.second=i;			//se guarda la posicion en donde se debe dividir el sufijo del nodo
+					pair2.first=pos+i;		//se guarda la posicion donde se debe dividir el vector s
+					pair.second=pair2;		//se guarda en otra tupla, la tupla anterior y el puntero al nodo con la posicion donde se debe agregar el nuevo
 				}
 			}
-			pos=pos+aux->suffix.size();
-			if(!found){
-				placeInTree(s,aux,pos);
+			pos=pos+aux->suffix.size();			//se cambia el valos de la posicion donde se empieza a compara el vector s con los sufijos del arbol
+			if(!found){											//en el caso de no haber encontrado la posicion
+				placeInTree(s,aux,pos);				//se llama recursivamente la funcion
 			}
 		}
-		pair.first=aux;
-		return pair;
+		pair.first=aux;			//se asigna al primer lugar de la tupla el puntero de la posicion donde se debe agregar el nuevo
+		return pair;				//se retorna la tupla con los datos
 	}
 }
 
@@ -116,76 +117,74 @@ pair<S_node*,pair<int,int> > C_Farach::placeInTree(vector<int> s, S_node* node, 
 void C_Farach::createTree(vector<int> s){
 
 	this->root->parent=NULL;
-	root->childrenCount=0;
-	vector<int> vect;
-	int c = 1;
-
-	for(int i=0;i<s.size();i++){
-		vect.clear();
-		for(int j=0;j<c;j++){
+	root->childrenCount=0;				//se inicializa el contador de los hijos del root en 0
+	vector<int> vect;							//vector para guardar los sufijos a insertar en el arbol
+	int c = 1;										//contador para leer los sufijos del vector s
+	for(int i=0;i<s.size();i++){			//se realiza el proceso de anadir sufijos al arbol una cantidad de veces igual a la cantidad de numeros del vector s
+		vect.clear();								//se vacia el vector cada vez
+		for(int j=0;j<c;j++){				//se llena el vector con el sufijo a insertar
 			vect.push_back(s[s.size()-1-i+j]);
 		}
-		pair<S_node*,pair<int,int> > pos = placeInTree(vect,root,0);
+		pair<S_node*,pair<int,int> > pos = placeInTree(vect,root,0);		//se guarda la posicion en donde se debe insertar el nodo
 
 		S_node* posn = pos.first;		//posicion del nodo
-		int posl1 = pos.second.second;
-		int posl = pos.second.first;			//posicion del numero en el vector
-		S_node* newNode = new S_node;
-		newNode->index=c;
-		if(pos.first==NULL){
-			root->children[root->childrenCount]=newNode;
-			root->childrenCount=root->childrenCount+1;
-			newNode->suffix=vect;
-			newNode->parent=root;
+		int posl1 = pos.second.second;		//posicion de l numero en el vector s donde se debe dividir el sufijo
+		int posl = pos.second.first;			//posicion del numero en el sufijo del arbol donde se debe dividir
+		S_node* newNode = new S_node;			//se crea el nuevo nodo
+		newNode->index=c;									//se asigna el valor del index al nuevo nodo
+		if(pos.first==NULL){							//en el caso de que no coincida el primer numero del vector con el de algun nodo
+			root->children[root->childrenCount]=newNode;			//se guarda el nuevo en la lista de hijos del root
+			root->childrenCount=root->childrenCount+1;				//se suma 1 al contador de hijos del root
+			newNode->suffix=vect;							//se asiga el sufijo al nodo
+			newNode->parent=root;							//se asigna como padre el root
+
 			cout << "se agrega nodo con:" << '\n';
 			for(int i=0;i<newNode->suffix.size();i++){
 				cout << newNode->suffix[i] << '\n';
 			}
-			std::cout << "con index: "<<newNode->index << '\n';
-
+			cout << "con index: "<<newNode->index << '\n';
 		}
 
-		else{
-			vector<int> v;
-			S_node* newNode2 = new S_node;
-			std::cout << "x "<<posn->suffix.size()<< '\n';
-			for(int x=posn->suffix.size()-posl-1;x<posn->suffix.size();x++){
+		else{							//en el caso de coincidir el primer numero con el de algun nodo, se deben agregar dos nodos nuevos
+			vector<int> v;						//vector para el sufijo de uno de los nodos nuevos
+			S_node* newNode2 = new S_node;			//se crea el otro nodo
+			for(int x=posl;x<posn->suffix.size();x++){				//se copia en v la parte del sufijo sobrante del nodo viejo del arbol
 				v.push_back(posn->suffix[x]);
 			}
-			for(int x=posn->suffix.size()-1;x>posl;x--){
+			for(int x=posn->suffix.size()-1;x>posl;x--){			//se borran del nodo viejo los numeros sobrantes del sufijo
 				posn->suffix.erase(posn->suffix.begin()+x);
 			}
-			newNode2->suffix=v;
-			newNode2->parent=posn;
-			newNode2->index=posn->index;
-			newNode2->childrenCount=0;
-			newNode->childrenCount=0;
-			posn->children[posn->childrenCount]=newNode;
-			posn->children[posn->childrenCount]=newNode2;
-			posn->index=0;
-			posn->childrenCount=posn->childrenCount+2;
-			newNode->parent=posn;
+			newNode2->suffix=v;															//se asigna el sufijo al nodo nuevo
+			newNode2->parent=posn;													//se adigna el nodo viejo como padre
+			newNode2->index=posn->index;										//se asigna el index del nodo viejo
+			newNode2->childrenCount=0;											//se inicializa el contador de hijos en 0
+			newNode->childrenCount=0;												//se inicializa el contador de hijos en 0
+			posn->children[posn->childrenCount]=newNode;		//se agrega el nuevo nodo a la lista de hijos del nodo viejo
+			posn->children[posn->childrenCount]=newNode2;		//se agrega el nuevo nodo a la lista de hijos del nodo viejo
+			posn->index=0;																	//se cambia el index del nodo viejo a 0
+			posn->childrenCount=posn->childrenCount+2;			//se suma 2 al contador de hijos del nodo viejo
+			newNode->parent=posn;														//se asigna el nodo viejo como padre
 
-			vector<int> v2;
-			for(int x=s.size()-posl1-1;x<s.size();x++){
+			vector<int> v2;																	//se crea el vector para el segundo sufijo
+			for(int x=posl1;x<s.size();x++){								//se llema el vector con el sufijo nuevo del vector s
 				v2.push_back(s[x]);
 			}
-			newNode->suffix=v2;
+			newNode->suffix=v2;															//se asigna el sufijo al nodo nuevo
 			cout << "se agrega nodo con:" << '\n';
 			for(int i=0;i<newNode->suffix.size();i++){
 				cout << newNode->suffix[i] << '\n';
 			}
-			std::cout << "con index: "<<newNode->index << '\n';
-			std::cout << ".........." << '\n';
+			cout << "con index: "<<newNode->index << '\n';
+			cout << ".........." << '\n';
 			cout << "se agrega nodo con:" << '\n';
 			for(int i=0;i<newNode2->suffix.size();i++){
 				cout << newNode2->suffix[i] << '\n';
 			}
-			std::cout << "con index: "<<newNode2->index << '\n';
+			cout << "con index: "<<newNode2->index << '\n';
 
 		}
-		c++;
-		std::cout << ".........." << '\n';
+		c++;		//se aumenta el contador para agrgar un numero mas al sufijo
+		cout << ".........." << '\n';
 	}
 
 }
