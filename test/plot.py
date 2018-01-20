@@ -18,7 +18,7 @@ class plot:
 		canvas.draw()
 		renderer = canvas.get_renderer()
 		raw_data = renderer.tostring_rgb()
-  		surface = pygame.image.fromstring(raw_data, size, "RGB")
+		surface = pygame.image.fromstring(raw_data, size, "RGB")
 		screen.blit(surface, (x,y))
 		pygame.display.flip()
 		f.clear()
