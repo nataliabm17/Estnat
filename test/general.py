@@ -5,12 +5,13 @@ import serial
 import time
 
 
-
 import pylab
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.backends.backend_agg as agg
 from matplotlib import style
+#!/usr/bin/python
+#  -*- coding: latin-1 -*-
 
 style.use("ggplot")
 green = (32,178,170)
@@ -36,25 +37,62 @@ def message_display(text, x, y, size):
     window.blit(TextSurf, TextRect)
 
 def display_general(color1, text):
+    pygame.draw.rect(screen, light_blue,(120,230,800,650))
     pygame.draw.rect(screen, color1,(200,70,600,100))
     message_display(text, 500, 110, 40)
 
-    message_display('Team #: 1230', 200, 260, 25)
-    message_display('Mission Time:', 200, 320, 25)
-    message_display('Heatshield:', 200, 380, 25)
-    message_display('Parachute:', 200, 500, 25)
+    message_display('Team #: 1230', 200, 320, 25)
+    message_display('Mission Time:', 205,380 , 25)
+    message_display('Heatshield:', 190,440 , 25)
+    pygame.draw.rect(screen, red,(280,430,35,35))
+    pygame.draw.rect(screen, red,(280,490,35,35))
+    message_display('deploy', 350, 447.5, 20)
+    message_display('release', 353, 507.5, 20)
+
+    message_display('Parachute:', 187, 560, 25)
+    pygame.draw.rect(screen, red,(280,550,35,35))
+
+    message_display('Take off:', 175, 620, 25)
+    pygame.draw.rect(screen, red,(280,610,35,35))
 
     pygame.draw.rect(screen, lime,(475,775,250,50))
     pygame.draw.rect(screen, red,(250,775,100,50))
     message_display('Save and export', 600, 800, 25)
     message_display('Reset', 300, 800, 25)
 
-    message_display('Tilt:', 600, 260, 25)
-    message_display('Height:', 600, 320, 25)
-    message_display('Voltage:', 600, 380, 25)
-    message_display('Pressure:', 600, 440, 25)
-    message_display('Temperature:', 600, 500, 25)
-    message_display('Acceleration:', 600, 560, 25)
+    message_display('Tilt:', 600, 320, 25)
+    message_display('Height:', 619, 380, 25)
+    message_display('Voltage:', 626, 440, 25)
+    message_display('Pressure:', 635, 500, 25)
+    message_display('Temperature:', 657, 560, 25)
+    message_display('Acceleration:', 655, 620, 25)
+
+def load_image(filename, transparent=False):
+        try: image = pygame.image.load(filename)
+        except pygame.error, message:
+                raise SystemExit, message
+        image = image.convert()
+        size=[800, 650]
+        image= pygame.transform.scale(image, size)
+        if transparent:
+                color = image.get_at((0,0))
+                image.set_colorkey(color, RLEACCEL)
+        return image
+
+
+def display_radar(color1, text):
+    pygame.draw.rect(screen, color1,(200,70,600,100))
+    message_display(text, 500, 110, 40)
+    background_image = load_image('radar.jpg')
+    screen.blit(background_image, (120, 230))
+    pygame.draw.circle(screen, red, (500,400), 5, 5)
+    pygame.draw.circle(screen, red, (450,480), 5, 5)
+    pygame.draw.circle(screen, red, (530,410), 5, 5)
+    pygame.draw.circle(screen, red, (580,350), 5, 5)
+    pygame.draw.circle(screen, red, (600,380), 5, 5)
+    pygame.draw.circle(screen, red, (500,400), 5, 5)
+    pygame.display.flip()
+
 
 
 def button(x, y, height, width, color1, color2, text, text_size, position):
@@ -65,9 +103,15 @@ def button(x, y, height, width, color1, color2, text, text_size, position):
 
         if click[0] == 1:
             if position == 1:
+               message_display('Team U-sure', 195 ,200 , 25)
                display_general(color1, text)
 
+            elif position == 7:
+               message_display('Team U-sure', 195 ,200 , 25)
+               display_radar(color1, text)
+
             else:
+                message_display('Team U-sure', 195 ,200 , 25)
                 pygame.draw.rect(screen, color1,(200,70,600,100))
                 message_display(text, 500, 110, 40)
 
@@ -103,7 +147,7 @@ def create():
 
 def game_loop():
 
-    pygame.display.set_caption('U sure CANSAT UCR')
+    pygame.display.set_caption('U-sure CANSAT UCR')
 
     background_colour = light_blue
 
