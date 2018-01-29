@@ -55,7 +55,7 @@ def display_general(color1, text):
     message_display('Parachute:', 189, 620, 25)
     pygame.draw.rect(screen, red,(280,610,35,35))
 
-    message_display('Launch:', 177, 700, 25)
+    message_display('Launch:', 172, 680, 25)
     pygame.draw.rect(screen, red,(280,670,35,35))
 
     pygame.draw.rect(screen, lime,(475,775,250,50))
@@ -97,6 +97,16 @@ def display_radar(color1, text):
     pygame.draw.circle(screen, red, (500,400), 5, 5)
     pygame.display.flip()
 
+    message_display('2000m', 120, 885, 15)
+    message_display('1000m', 320, 885, 15)
+    message_display('0m', 520, 885, 15)
+    message_display('1000m', 720, 885, 15)
+    message_display('2000m', 920, 885, 15)
+
+    message_display('2000m', 95, 230, 15)
+    message_display('1000m',95, 392.5, 15)
+    message_display('0m', 95, 555, 15)
+    message_display('1000m', 95, 717.5, 15)
 
 
 def button(x, y, height, width, color1, color2, text, text_size, position):
