@@ -38,8 +38,8 @@ def message_display(text, x, y, size):
 
 def display_general(color1, text):
     pygame.draw.rect(screen, light_blue,(120,230,800,650))
-    pygame.draw.rect(screen, color1,(310,70,380,80))
-    message_display(text, 500, 110, 40)
+    pygame.draw.rect(screen, color1,(410,70,380,80))
+    message_display(text, 600, 110, 40)
 
     message_display('Team #: 1230', 197, 260, 25)
     message_display('Count of packets:', 224, 320, 25)
@@ -85,8 +85,8 @@ def load_image(filename, transparent=False):
 
 
 def display_radar(color1, text):
-    pygame.draw.rect(screen, color1,(310,70,380,80))
-    message_display(text, 500, 110, 40)
+    pygame.draw.rect(screen, color1,(410,70,380,80))
+    message_display(text, 600, 110, 40)
     background_image = load_image('radar.jpg')
     screen.blit(background_image, (120, 230))
     pygame.draw.circle(screen, red, (500,400), 5, 5)
@@ -116,8 +116,8 @@ def button(x, y, height, width, color1, color2, text, text_size, position):
 
             else:
                 message_display('Team U-sure', 195 ,200 , 25)
-                pygame.draw.rect(screen, color1,(310,70,380,80))
-                message_display(text, 500, 110, 40)
+                pygame.draw.rect(screen, color1,(410,70,380,80))
+                message_display(text, 600, 110, 40)
 
                 fig = pylab.figure(figsize=[8, 6.5], # Inches
                                    dpi=100,        # 100 dots per inch, so the resulting buffer is 400x400 pixels
