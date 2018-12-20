@@ -3,8 +3,6 @@ import pygame
 from pygame.locals import *
 import serial
 import time
-
-
 import pylab
 import matplotlib
 matplotlib.use("Agg")
@@ -25,7 +23,6 @@ light_blue = (135,206,235)
 window_Width = 1200
 window_Height = 900
 
-
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
@@ -40,29 +37,23 @@ def display_general(color1, text):
     pygame.draw.rect(screen, light_blue,(120,230,800,650))
     pygame.draw.rect(screen, color1,(410,70,380,80))
     message_display(text, 600, 110, 40)
-
     message_display('Team #: 1230', 197, 260, 25)
     message_display('Count of packets:', 224, 320, 25)
     message_display('Port:', 148, 380, 25)
     message_display('Board:', 160, 440, 25)
-
     message_display('Heatshield:', 189,500 , 25)
     pygame.draw.rect(screen, red,(280,490,35,35))
     pygame.draw.rect(screen, red,(280,550,35,35))
     message_display('deployed', 360, 507.5, 20)
     message_display('released', 361, 567.5, 20)
-
     message_display('Parachute:', 189, 620, 25)
     pygame.draw.rect(screen, red,(280,610,35,35))
-
     message_display('Launch:', 172, 680, 25)
     pygame.draw.rect(screen, red,(280,670,35,35))
-
     pygame.draw.rect(screen, lime,(475,775,250,50))
     pygame.draw.rect(screen, red,(250,775,100,50))
     message_display('Save and export', 600, 800, 25)
     message_display('Reset', 300, 800, 25)
-
     message_display('Mission Time:', 655, 320 , 25)
     message_display('Tilt:', 595, 380, 25)
     message_display('Altitude:', 621, 440, 25)
@@ -82,8 +73,7 @@ def load_image(filename, transparent=False):
                 color = image.get_at((0,0))
                 image.set_colorkey(color, RLEACCEL)
         return image
-
-
+    
 def display_radar(color1, text):
     pygame.draw.rect(screen, color1,(410,70,380,80))
     message_display(text, 600, 110, 40)
@@ -96,19 +86,16 @@ def display_radar(color1, text):
     pygame.draw.circle(screen, red, (600,380), 5, 5)
     pygame.draw.circle(screen, red, (500,400), 5, 5)
     pygame.display.flip()
-
     message_display('2000m', 120, 885, 15)
     message_display('1000m', 320, 885, 15)
     message_display('0m', 520, 885, 15)
     message_display('1000m', 720, 885, 15)
     message_display('2000m', 920, 885, 15)
-
     message_display('2000m', 95, 230, 15)
     message_display('1000m',95, 392.5, 15)
     message_display('0m', 95, 555, 15)
     message_display('1000m', 95, 717.5, 15)
-
-
+    
 def button(x, y, height, width, color1, color2, text, text_size, position):
     click = pygame.mouse.get_pressed()
     mouse = pygame.mouse.get_pos()
@@ -156,22 +143,16 @@ def create():
     button(window_Width/1.2, window_Height/8, 50, 130, green, bright_green, 'Temperature', 20, 5)
     button(window_Width/1.2, window_Height/8, 50, 130, green, bright_green, 'Acceleration', 20, 6)
     button(window_Width/1.2, window_Height/8, 50, 130, green, bright_green, 'Location', 20, 7)
-
     pygame.display.update()
 
 def game_loop():
-
     pygame.display.set_caption('U-sure CANSAT UCR')
-
     background_colour = light_blue
-
     screen.fill(background_colour)
-
     size = (400,400)
     x = 20
     y = 10
     port = '/dev/ttyACM0'
-
     myPlot = plot()
     crashed = False
     #arduinoData = serial.Serial(port, 9600)
@@ -179,11 +160,8 @@ def game_loop():
     dataList = []
     timeList = []
     f = myPlot.fig.add_subplot(111)
-
     while not crashed:
         create()
-
-
 
      #   while not (arduinoData.readline()):
       #      pass
@@ -203,5 +181,4 @@ def game_loop():
 pygame.init()
 window = pygame.display.set_mode((window_Width, window_Height), DOUBLEBUF)
 screen = pygame.display.get_surface()
-
 game_loop()
